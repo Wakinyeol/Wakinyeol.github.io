@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#c8e7ed" />
+    <meta name="description" content="王柯颖 · 作品晾晒与项目野餐互动预览" />
+    <title>王柯颖 · 作品野餐（预览 05）</title>
+    <link rel="preload" as="image" href="../../assets/scene-reference/scene-05-work-picnic-reference.png" />
+    <link rel="stylesheet" href="scene.css" />
+    <script src="scene-data.js" defer></script>
+    <script src="scene.js" defer></script>
+    <script src="../scene-bridge.js" defer></script>
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <div class="scene-plane" aria-label="夏日草坪的野餐场景：绳子上的五张作品色卡与野餐垫上的玩偶、相机和草帽">
+        <div class="air" aria-hidden="true"></div>
+        <div class="light-wash" aria-hidden="true"></div>
+        <div class="scene-interactions">
+          <div class="work-entrances" id="work-entrances" aria-label="作品类别">
+            <button type="button" class="category category-photo" data-category="photography" aria-controls="work-browser" aria-expanded="false"><span></span></button>
+            <button type="button" class="category category-ppt" data-category="presentations" aria-controls="work-browser" aria-expanded="false"><span></span></button>
+            <button type="button" class="category category-poster" data-category="posters" aria-controls="work-browser" aria-expanded="false"><span></span></button>
+            <button type="button" class="category category-article" data-category="articles" aria-controls="work-browser" aria-expanded="false"><span></span></button>
+            <button type="button" class="category category-video" data-category="videos" aria-controls="work-browser" aria-expanded="false"><span></span></button>
+          </div>
+          <div class="case-entrances" aria-label="项目案例">
+            <button type="button" class="case-entrance blue-hat" data-hotspot="blue-hat-toy" aria-controls="case-layer"><span class="case-entrance-name"></span></button>
+            <button type="button" class="case-entrance camera" data-hotspot="camera" aria-controls="case-layer"><span class="case-entrance-name"></span></button>
+            <button type="button" class="case-entrance straw-hat" data-hotspot="straw-hat" aria-controls="case-layer"><span class="case-entrance-name"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <header class="top-bar">
+        <a class="back" href="../scene-04-roots/index.html" id="back-link">← 返回第四幕</a>
+        <span class="scene-number">05 <span aria-hidden="true">/</span> 08 <i></i> WORK PICNIC</span>
+        <div class="top-actions">
+          <button id="language" class="language" type="button" aria-label="Switch to English" aria-pressed="false">中 <span>/</span> EN</button>
+          <a id="resume-link" class="resume-link" href="../../assets/resume/wang-keying-resume-current.pdf" download="王柯颖简历.pdf">下载简历 <span aria-hidden="true">↘</span></a>
+        </div>
+      </header>
+
+      <div class="scene-title"><span id="title-eyebrow">一些做过的事，晒在阳光里。</span><h1 id="scene-title">把想法，带到生活里。</h1></div>
+      <p class="scene-hint" id="scene-hint">点一张色卡，看一件作品；点一件野餐物品，读一段故事 <span aria-hidden="true">✳</span></p>
+
+      <section class="work-browser" id="work-browser" aria-label="作品浏览" aria-hidden="true" inert>
+        <div class="browser-top"><span class="eyebrow" id="browser-label">SELECTED WORKS · 05</span><button type="button" class="icon-button" id="browser-close" aria-label="关闭作品">×</button></div>
+        <div class="browser-heading"><h2 id="category-heading"></h2><span class="work-counter" id="work-counter"></span></div>
+        <div class="work-paper" id="work-paper">
+          <div class="paper-corner" aria-hidden="true"></div>
+          <div class="paper-body" id="paper-body"></div>
+          <button type="button" class="paper-turn" id="paper-turn" aria-label="下一张作品" title="下一张作品"><span aria-hidden="true">→</span></button>
+        </div>
+        <div class="work-caption" id="work-caption"></div>
+        <div class="browser-bottom"><span class="browser-decoration"><span aria-hidden="true">✳</span> THE LITTLE THINGS I MAKE</span><div class="pager"><button type="button" id="prev-work">← 上一张</button><button type="button" id="next-work">下一张 →</button></div></div>
+      </section>
+
+      <div class="mobile-dock" aria-label="作品与案例快捷入口">
+        <div class="dock-category" id="mobile-categories"></div>
+        <div class="dock-case" id="mobile-cases"></div>
+      </div>
+
+      <section class="case-layer" id="case-layer" role="dialog" aria-modal="true" aria-labelledby="case-title" aria-hidden="true" inert>
+        <button class="case-scrim" id="case-scrim" type="button" aria-label="关闭项目详情"></button>
+        <article class="case-sheet" id="case-sheet">
+          <div class="case-sheet-top"><span class="eyebrow" id="case-number">FIELD NOTES / 01</span><button type="button" class="icon-button" id="case-close" aria-label="关闭项目详情">×</button></div>
+          <p class="case-kicker" id="case-kicker">A STORY BEHIND THE OBJECT</p>
+          <h2 id="case-title"></h2>
+          <div id="case-metrics"></div>
+          <div class="case-sections" id="case-sections"></div>
+          <div class="related-work" id="related-work"></div>
+          <div class="case-end">WANG KEYING <span aria-hidden="true">✳</span> SELECTED CASE STUDY</div>
+        </article>
+      </section>
+
+      <div class="media-layer" id="media-layer" role="dialog" aria-modal="true" aria-labelledby="media-title" aria-hidden="true" inert>
+        <div class="media-panel"><div class="media-top"><h2 id="media-title"></h2><div class="media-actions"><button type="button" id="media-zoom" class="media-zoom">放大 +</button><button type="button" class="icon-button" id="media-close" aria-label="关闭放大视图">×</button></div></div><div class="media-content" id="media-content"></div></div>
+      </div>
+      <div class="page-mark" aria-hidden="true">PORTFOLIO <span>✳</span> 2026</div>
+    </main>
+  </body>
+</html>

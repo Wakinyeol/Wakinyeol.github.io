@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7eedb" />
+    <meta name="description" content="王柯颖 · 根系经历地图互动预览" />
+    <title>王柯颖 · 根系经历地图（预览 04）</title>
+    <link rel="preload" as="image" href="../../assets/scene-reference/scene-04-experience-roots-reference.png" />
+    <link rel="stylesheet" href="scene.css" />
+    <script src="scene.js" defer></script>
+    <script src="../scene-bridge.js" defer></script>
+  </head>
+  <body>
+    <main class="roots-stage" id="roots-stage" data-screen-label="04 · Experience Roots">
+      <div class="scene-world" aria-hidden="true">
+        <div class="earth-art"></div>
+        <div class="surface-light"></div>
+        <svg class="living-roots" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <path class="root-path root-jxstnu" pathLength="1" d="M719 212 C679 259 588 262 500 290 S315 286 237 290 S187 297 162 303" />
+          <path class="root-path root-uibe" pathLength="1" d="M718 218 C684 266 665 280 646 306 S606 326 559 337" />
+          <path class="root-path root-gaotu" pathLength="1" d="M714 247 C658 337 562 367 480 404 S423 450 372 468 S326 469 312 470" />
+          <path class="root-path root-bluefocus" pathLength="1" d="M721 265 C720 355 665 395 663 427 S699 457 706 468" />
+          <path class="root-path root-lining" pathLength="1" d="M720 227 C766 293 888 290 954 301 S1061 300 1102 303" />
+          <path class="root-path root-lixiang" pathLength="1" d="M728 245 C820 344 944 358 1040 414 S1089 465 1156 486" />
+        </svg>
+        <div class="soil-shimmer"></div>
+      </div>
+
+      <header class="top-bar">
+        <a class="back" href="../scene-03-orchard/index.html" data-copy="back">← 返回第三幕</a>
+        <div class="top-actions">
+          <button id="language" class="language" type="button" aria-label="Switch to English" aria-pressed="false">中 <span>/</span> EN</button>
+          <a class="resume-link" href="../../assets/resume/wang-keying-resume-current.pdf" download="王柯颖简历.pdf" data-copy="resume">下载简历 <span aria-hidden="true">↘</span></a>
+        </div>
+      </header>
+
+      <div class="chapter-intro">
+        <span class="chapter-index">04 / 08 <span class="index-rule"></span> EXPERIENCE ROOTS</span>
+        <h1 data-copy="heading">每一步，都在向下扎根。</h1>
+        <p data-copy="subheading">学习与实践交织，长出我的方向。</p>
+      </div>
+
+      <div class="node-field" id="node-field" aria-label="六段学习与实践经历">
+        <button class="experience-node" type="button" data-id="jxstnu" aria-expanded="false" aria-controls="experience-detail" style="--x:11%;--y:31%;--delay:.10s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-school" src="../../assets/experience-logos/jxstnu-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+        <button class="experience-node" type="button" data-id="uibe" aria-expanded="false" aria-controls="experience-detail" style="--x:37%;--y:34%;--delay:.22s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-school" src="../../assets/experience-logos/uibe-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+        <button class="experience-node" type="button" data-id="gaotu" aria-expanded="false" aria-controls="experience-detail" style="--x:21%;--y:49%;--delay:.34s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-gaotu" src="../../assets/experience-logos/gaotu-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+        <button class="experience-node" type="button" data-id="bluefocus" aria-expanded="false" aria-controls="experience-detail" style="--x:47%;--y:49%;--delay:.46s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-bluefocus" src="../../assets/experience-logos/bluefocus-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+        <button class="experience-node" type="button" data-id="lining" aria-expanded="false" aria-controls="experience-detail" style="--x:76%;--y:31%;--delay:.58s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-lining" src="../../assets/experience-logos/lining-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+        <button class="experience-node" type="button" data-id="lixiang" aria-expanded="false" aria-controls="experience-detail" style="--x:78%;--y:51%;--delay:.70s">
+          <span class="root-knot" aria-hidden="true"></span>
+          <img class="node-logo logo-lixiang" src="../../assets/experience-logos/li-auto-transparent-preview.png" alt="" />
+          <span class="node-text"><span class="organization"></span><span class="role"></span><time class="period"></time></span>
+        </button>
+      </div>
+
+      <p class="interaction-hint" data-copy="hint">点击名字，看看根系里藏着的经历 <span aria-hidden="true">↗</span></p>
+      <section class="detail" id="experience-detail" aria-label="经历详情" aria-live="polite" inert>
+        <div class="detail-top"><span class="detail-overline" data-copy="detailLabel">根系里的一段故事</span><button id="detail-close" class="detail-close" type="button" aria-label="收起经历详情">×</button></div>
+        <h2 id="detail-name"></h2>
+        <p class="detail-role" id="detail-role"></p>
+        <ul class="detail-list" id="detail-list"></ul>
+        <p class="detail-scroll-cue" id="detail-scroll-cue" data-copy="scrollCue">↓ 向下滚动，继续阅读</p>
+      </section>
+      <div class="chapter-mark" aria-hidden="true"><span>04</span><span class="chapter-line"></span><span>08</span></div>
+    </main>
+  </body>
+</html>

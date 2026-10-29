@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b2633" />
+    <meta name="description" content="王柯颖 · 第二幕人物扫描互动预览" />
+    <title>王柯颖 · 人物扫描（预览 02）</title>
+    <link rel="preload" as="image" href="assets/character-white-outfit-cutout.png" />
+    <link rel="preload" as="image" href="assets/character-white-outfit-outline.png" />
+    <link rel="stylesheet" href="scene.css" />
+    <script src="scene.js" defer></script>
+    <script src="../scene-bridge.js" defer></script>
+  </head>
+  <body>
+    <header class="top-bar">
+      <a class="back" href="../scene-01-arrival/index.html" data-copy="back">← 返回第一幕</a>
+      <div class="top-actions">
+        <button id="language" class="language" type="button" aria-label="Switch to English" aria-pressed="false"><span class="language-zh">中</span><span class="language-divider"> / </span><span class="language-en">EN</span></button>
+        <a class="resume-link" href="../../assets/resume/wang-keying-resume-current.pdf" download="王柯颖简历.pdf" data-copy="resume">下载简历 <span aria-hidden="true">↘</span></a>
+      </div>
+    </header>
+
+    <main class="scan-journey" data-screen-label="02 · Personal Scan">
+      <section class="scan-stage" aria-labelledby="scan-title">
+        <div class="studio-echo" aria-hidden="true"></div>
+        <div class="ambient" aria-hidden="true"><div class="halo"></div><div class="dust" id="dust"></div><div class="floor-grid"></div></div>
+
+        <div class="stage-index"><span>02 / 08</span><span class="stage-index-line"></span><span data-copy="stage">PERSONAL SCAN</span></div>
+        <div class="stage-side-label" aria-hidden="true">AN OPEN PROFILE · 002</div>
+
+        <div class="scan-center" aria-hidden="true">
+          <div class="scan-arch arch-one"></div>
+          <div class="scan-arch arch-two"></div>
+          <div class="subject" id="subject">
+            <img class="person-real" src="assets/character-white-outfit-cutout.png" alt="" />
+            <img class="person-scanned" src="assets/character-white-outfit-outline.png" alt="" />
+            <div class="scan-beam"></div>
+          </div>
+          <div class="platform"><div class="platform-inner"></div></div>
+          <div class="scan-counter"><span class="counter-caption">SCAN</span><span id="scan-number">000</span><span class="counter-unit">/ 100</span></div>
+        </div>
+
+        <div class="info info-identity" data-threshold=".29">
+          <span class="info-label" data-copy="nameLabel">IDENTITY / 姓名</span>
+          <h1 id="scan-title" data-copy="name">柯颖</h1>
+          <div class="thin-rule"></div>
+          <p class="age"><span data-copy="ageLabel">AGE / 年龄</span><strong data-copy="age">23 岁</strong></p>
+        </div>
+
+        <div class="info info-mbti" data-threshold=".40">
+          <span class="info-label">PERSONALITY / MBTI</span>
+          <p>ENTJ<span class="asterisk" aria-hidden="true">✳</span></p>
+        </div>
+
+        <div class="info-stack">
+          <div class="info info-education" data-threshold=".54">
+            <span class="info-label" data-copy="educationLabel">LEARNING PATH / 教育经历</span>
+            <div class="thin-rule"></div>
+            <div class="school master" data-threshold=".57">
+              <span class="school-index">01</span>
+              <div><p class="school-name" data-copy="master">对外经济贸易大学 <span>· 国际商务硕士</span></p><p class="school-meta" data-copy="masterMeta">GPA 3.7 / 4.0 · 前 50%</p></div>
+            </div>
+            <div class="school bachelor" data-threshold=".64">
+              <span class="school-index">02</span>
+              <div><p class="school-name" data-copy="bachelor">江西科技师范大学 <span>· 会计学本科</span></p><p class="school-meta" data-copy="bachelorMeta">GPA 4.19 / 5.0 · 专业第 2</p><p class="school-awards" data-copy="awards">校级优秀毕业生 · 优秀学生干部 · 多次一等奖学金</p></div>
+            </div>
+          </div>
+
+          <div class="info info-skills" data-threshold=".72">
+            <span class="info-label" data-copy="skillsLabel">WHAT I WORK WITH / 技能</span>
+            <div class="thin-rule"></div>
+            <p class="group-title" data-copy="toolsTitle">内容与视觉工具</p>
+            <p class="tool-list" data-copy="tools">PPT · 秀米 · 剪映 · Photoshop · Lightroom · Canva</p>
+            <div class="skill-data skill-subgroup" data-threshold=".79">
+              <p class="group-title" data-copy="dataTitle">数据分析工具</p>
+              <p class="tool-list" data-copy="dataTools">Excel · SQL</p>
+            </div>
+            <div class="skill-ai skill-subgroup" data-threshold=".85">
+              <p class="group-title" data-copy="aiTitle">AI 工具</p>
+              <p class="tool-list" data-copy="aiTools">熟练使用 Codex、Coze、即梦 AI 等主流 AI 工具</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-cue"><span class="cue-line"><i></i></span><span data-copy="cue">向下滚动，完成扫描</span></div>
+        <div class="progress-rail" aria-hidden="true"><span></span></div>
+        <div class="end-mark"><span>02</span><span class="mark-line"></span><span>08</span></div>
+      </section>
+    </main>
+  </body>
+</html>

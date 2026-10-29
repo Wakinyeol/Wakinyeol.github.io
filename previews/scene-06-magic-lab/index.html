@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#d6dbc3" />
+  <meta name="description" content="王柯颖 · AI 魔法实验室互动预览" />
+  <title>王柯颖 · AI 魔法实验室（预览 06）</title>
+  <link rel="preload" as="image" href="../../assets/scene-reference/scene-06-garden-magic-box-reference.png" />
+  <link rel="stylesheet" href="scene.css" />
+  <script src="scene-data.js" defer></script>
+  <script src="scene.js" defer></script>
+  <script src="../scene-bridge.js" defer></script>
+</head>
+<body>
+  <main class="stage" id="stage" data-screen-label="06 · AI Magic Lab">
+    <div class="garden" aria-hidden="true"></div>
+    <div class="scene-effects" aria-hidden="true">
+      <span class="ray ray-one"></span><span class="ray ray-two"></span>
+      <span class="mote mote-one"></span><span class="mote mote-two"></span><span class="mote mote-three"></span><span class="mote mote-four"></span><span class="mote mote-five"></span>
+    </div>
+
+    <header class="top-bar">
+      <a class="back" href="../scene-05-work-picnic/index.html" id="back-link">← 返回第五幕</a>
+      <span class="chapter">06 <span>/ 08</span> <i></i> AI MAGIC LAB</span>
+      <div class="top-actions">
+        <button id="language" class="language" type="button" aria-label="Switch to English" aria-pressed="false">中 <span>/</span> EN</button>
+        <a id="resume-link" href="../../assets/resume/wang-keying-resume-current.pdf" download="王柯颖简历.pdf">下载简历 <span aria-hidden="true">↘</span></a>
+      </div>
+    </header>
+
+    <div class="intro"><span class="eyebrow">06 / AI MAGIC LAB</span><h1 id="heading">让好奇心，长出新作品。</h1><p id="instruction">AI工具是魔法杖，有了它就会变魔法。点击看看我的AI成果吧～</p></div>
+
+    <section class="floating-works" id="floating-works" aria-label="AI 作品：四件独立悬浮载体"></section>
+    <span class="box-note" id="box-note">四种尝试，四种打开想象的方式。<span aria-hidden="true"> ✳</span></span>
+
+    <section class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" aria-hidden="true" inert>
+      <div class="veil" id="veil"></div>
+      <div class="viewer-panel" id="viewer-panel">
+        <header class="viewer-bar"><h2 id="viewer-title"></h2><button type="button" class="close" id="viewer-close" aria-label="关闭作品">×</button></header>
+        <div class="viewer-content" id="viewer-content"></div>
+        <footer class="viewer-footer" id="viewer-footer"><button type="button" id="previous">← 上一件</button><span id="counter"></span><button type="button" id="next">下一件 →</button></footer>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery" role="dialog" aria-modal="true" aria-labelledby="gallery-title" aria-hidden="true" inert>
+      <div class="gallery-veil" id="gallery-veil"></div>
+      <div class="gallery-panel">
+        <header class="gallery-top"><div><span class="eyebrow">SKILL / OUTPUT</span><h2 id="gallery-title">穿搭色卡 · 应用示例</h2></div><button type="button" id="gallery-close" class="close" aria-label="返回文档">×</button></header>
+        <p id="gallery-caption"></p>
+        <div class="gallery-image-wrap" id="gallery-image-wrap"><img id="gallery-image" alt="" /></div>
+        <footer class="gallery-footer"><button type="button" id="gallery-prev">← 上一张</button><span id="gallery-counter"></span><button type="button" id="gallery-next">下一张 →</button><button type="button" id="gallery-zoom">放大 +</button></footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

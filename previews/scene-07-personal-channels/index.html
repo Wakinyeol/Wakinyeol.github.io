@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b5b1a1" />
+  <meta name="description" content="王柯颖 · 摄影与穿搭账号互动预览" />
+  <title>王柯颖 · 摄影与穿搭（预览 07）</title>
+  <link rel="preload" as="image" href="../../assets/scene-reference/scene-07-photo-fashion-glasshouse-reference.jpeg" />
+  <link rel="preload" as="image" href="assets/characters-foreground.png" />
+  <link rel="stylesheet" href="scene.css" />
+  <script src="scene-data.js" defer></script>
+  <script src="scene.js" defer></script>
+  <script src="../scene-bridge.js" defer></script>
+</head>
+<body>
+  <main class="stage" id="stage" data-screen-label="07 · Personal Channels">
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="scene">
+      <div class="shot shot-photo" id="shot-photo">
+        <div class="scene-image" aria-hidden="true"></div>
+        <button class="character character-photo" id="scene-07-left-photographer" type="button" aria-controls="account-panel" aria-expanded="false" aria-label="查看摄影账号">
+          <img src="assets/characters-foreground.png" alt="" draggable="false" />
+        </button>
+        <div class="photo-glint" aria-hidden="true"></div>
+        <span class="character-tag character-tag-photo" id="photo-tag" aria-hidden="true">摄影 / Photography <span>↗</span></span>
+      </div>
+      <div class="shot shot-fashion" id="shot-fashion">
+        <div class="scene-image" aria-hidden="true"></div>
+        <div class="mirror-glint" aria-hidden="true"></div>
+        <button class="character character-fashion" id="scene-07-right-fashion" type="button" aria-controls="account-panel" aria-expanded="false" aria-label="查看穿搭账号">
+          <img src="assets/characters-foreground.png" alt="" draggable="false" />
+        </button>
+        <span class="character-tag character-tag-fashion" id="fashion-tag" aria-hidden="true">穿搭 / Outfits <span>↗</span></span>
+      </div>
+      <div class="intro"><span class="eyebrow">07 / PERSONAL CHANNELS</span><p id="prompt">点击人物，看看我的账号</p></div>
+    </div>
+
+    <header class="top-bar">
+      <a class="back" href="../scene-06-magic-lab/index.html" id="back-link">← 返回第六幕</a>
+      <span class="chapter">07 <span>/ 08</span> <i></i> PERSONAL CHANNELS</span>
+      <div class="top-actions">
+        <button class="language" id="language" type="button" aria-label="Switch to English" aria-pressed="false">中 <span>/</span> EN</button>
+        <a id="resume-link" href="../../assets/resume/wang-keying-resume-current.pdf" download="王柯颖简历.pdf">下载简历 <span aria-hidden="true">↘</span></a>
+      </div>
+    </header>
+
+    <section class="account-panel" id="account-panel" role="region" aria-label="账号链接" aria-labelledby="panel-title" aria-hidden="true" inert>
+      <div class="panel-top"><span class="panel-kicker" id="panel-kicker">PERSONAL PRACTICE / 01</span><button type="button" id="panel-close" class="panel-close" aria-label="关闭账号信息">×</button></div>
+      <h1 id="panel-title"></h1>
+      <p class="panel-note" id="panel-note"></p>
+      <div class="account-links" id="account-links"></div>
+    </section>
+  </main>
+</body>
+</html>
