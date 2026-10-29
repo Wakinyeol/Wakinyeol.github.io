@@ -35,6 +35,10 @@
     motionStyles.rel = "stylesheet";
     motionStyles.href = "../scene-motion.css";
     document.head.append(motionStyles);
+    const framingStyles = document.createElement("link");
+    framingStyles.rel = "stylesheet";
+    framingStyles.href = "../scene-framing.css";
+    document.head.append(framingStyles);
   }
 
   function activateMotion() {
@@ -76,6 +80,20 @@
   let lastScroll = 0;
   let lastNavigate = 0;
   let startTouch = null;
+  let nextCue;
+  if (sceneNumber && sceneNumber !== "08") {
+    nextCue = document.createElement("button");
+    nextCue.type = "button";
+    nextCue.className = "scene-next-cue";
+    nextCue.innerHTML = '<span aria-hidden="true">⌄</span> <span class="cue-copy">向下滑动</span>';
+    nextCue.setAttribute("aria-label", "进入下一幕");
+    nextCue.addEventListener("click", () => {
+      if ((sceneNumber === "01" || sceneNumber === "02") && !boundary(1)) {
+        scrollBy({ top: innerHeight * .87, behavior: reducedMotion.matches ? "instant" : "smooth" });
+      } else navigate(1);
+    });
+    document.body.append(nextCue);
+  }
 
   // The existing "back" button returns within the unified story instead of loading
   // another standalone preview into this one frame.
@@ -108,7 +126,7 @@
 
   function navigate(direction) {
     const now = performance.now();
-    if (now - lastNavigate < 950 || !active) return;
+    if (now - lastNavigate < 450 || !active || overlayOpen()) return;
     lastNavigate = now;
     wheelTotal = 0;
     post(direction > 0 ? "NEXT" : "PREVIOUS");
@@ -138,18 +156,24 @@
   });
 
   document.addEventListener("touchstart", event => {
-    if (!active || overlayOpen() || event.touches.length !== 1 || event.target.closest("button, a, input, textarea, select, .mobile-dock")) {
+    if (!active || overlayOpen() || event.touches.length !== 1 || event.target.closest("input, textarea, select, [contenteditable]")) {
       startTouch = null;
       return;
     }
-    startTouch = { y: event.touches[0].clientY, top: boundary(-1), bottom: boundary(1) };
+    startTouch = { y: event.touches[0].clientY, x: event.touches[0].clientX, scrollY, scrolling: Boolean(scrollContainer(event.target)) };
   }, { passive: true });
   document.addEventListener("touchend", event => {
-    if (!startTouch || overlayOpen()) return;
+    if (!startTouch || overlayOpen()) { startTouch = null; return; }
     const delta = startTouch.y - event.changedTouches[0].clientY;
-    if (Math.abs(delta) > 90 && ((delta > 0 && startTouch.bottom) || (delta < 0 && startTouch.top))) navigate(Math.sign(delta));
+    const horizontal = Math.abs(startTouch.x - event.changedTouches[0].clientX);
+    if (!startTouch.scrolling && Math.abs(delta) > 55 && Math.abs(delta) > horizontal * 1.25) {
+      const direction = Math.sign(delta);
+      // A long scrolling scan/arrival should finish before changing scenes.
+      if (boundary(direction) && (sceneNumber !== "01" && sceneNumber !== "02" || Math.abs(scrollY - startTouch.scrollY) < 12)) navigate(direction);
+    }
     startTouch = null;
   }, { passive: true });
+  document.addEventListener("touchcancel", () => { startTouch = null; }, { passive: true });
 
   window.addEventListener("message", event => {
     if (event.source !== window.parent || event.data?.channel !== channel) return;
@@ -163,6 +187,10 @@
     if (action === "LANGUAGE") {
       const lang = document.documentElement.lang === "en" ? "en" : "zh";
       if ((value === "en" || value === "zh") && value !== lang) document.getElementById("language")?.click();
+      if (nextCue) {
+        nextCue.querySelector(".cue-copy").textContent = value === "en" ? "Swipe up" : "向下滑动";
+        nextCue.setAttribute("aria-label", value === "en" ? "Go to the next scene" : "进入下一幕");
+      }
     }
   });
 })();

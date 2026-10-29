@@ -55,6 +55,7 @@ window.addEventListener("resize", updateScroll, { passive: true });
 updateScroll();
 
 function tick() {
+  if (doc.dataset.motionActive === "false") { setTimeout(tick, 240); return; }
   const smoothing = reduced.matches ? 1 : .065;
   x += (targetX - x) * smoothing;
   y += (targetY - y) * smoothing;

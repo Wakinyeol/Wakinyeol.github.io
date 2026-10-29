@@ -204,6 +204,7 @@ if (!reduceMotion.matches) {
   }, { passive: true });
   stage.addEventListener("pointerleave", () => { targetX = 0; targetY = 0; });
   function frame() {
+    if (document.documentElement.dataset.motionActive === "false") { setTimeout(frame, 240); return; }
     x += (targetX - x) * .05;
     y += (targetY - y) * .05;
     stage.style.setProperty("--look-x", `${(x * 8).toFixed(2)}px`);

@@ -76,6 +76,7 @@ if(previewFrame!==null && Number.isFinite(Number(previewFrame))){
   smooth=target;
 }
 function animate(){
+  if(root.dataset.motionActive==="false"){setTimeout(animate,240);return;}
   smooth+=(target-smooth)*(reduce.matches?1:.105);
   lookX+=(pointerX-lookX)*.07;lookY+=(pointerY-lookY)*.07;
   // A single scroll-derived scan value drives both the visible material boundary and the counter.

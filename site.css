@@ -14,3 +14,8 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 .experience.is-transitioning .scene-transition{opacity:1}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.scene-frame,.scene-frame.is-current,.scene-transition{transition-duration:.01ms!important;transform:none!important}}
+@media(max-width:700px){
+  .scene-frame,.scene-frame.is-current{transform:none;will-change:auto;transition:opacity .32s ease,visibility 0s .38s}
+  .scene-frame.is-leaving.is-fading{transform:none}
+  .scene-transition{display:none}
+}

@@ -14,6 +14,7 @@
   };
   let index = 0;
   let changing = false;
+  let pendingScene = null;
   let language = "zh";
   try { language = localStorage.getItem("arrival-preview-language") === "en" ? "en" : "zh"; } catch { /* file previews may disallow storage */ }
 
@@ -41,12 +42,20 @@
     return frame.readyPromise;
   }
 
+  function warmNext(i) {
+    if (i < 0 || i >= frames.length) return;
+    const start = () => { if (frames[i].dataset.loaded !== "true") void ensureLoaded(i); };
+    if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 1500 });
+    else setTimeout(start, 100);
+  }
+
   function tell(frame, action, value) {
     frame.contentWindow?.postMessage({ channel: "wky-eight-scenes", action, value }, "*");
   }
 
   async function goTo(next, options = {}) {
-    if (next < 0 || next >= frames.length || changing || next === index) return;
+    if (next < 0 || next >= frames.length || next === index) return;
+    if (changing) { pendingScene = { next, options }; return; }
     changing = true;
     const outgoing = frameAt(index);
     const incoming = await ensureLoaded(next);
@@ -63,12 +72,17 @@
     updateLabels();
     if (!options.fromHistory) history.pushState({ scene: index + 1 }, "", `#scene-${String(index + 1).padStart(2, "0")}`);
     requestAnimationFrame(() => requestAnimationFrame(() => outgoing.classList.add("is-fading")));
-    const duration = reduced.matches ? 40 : 820;
+    const duration = reduced.matches ? 40 : matchMedia("(max-width: 700px)").matches ? 390 : 820;
     setTimeout(() => {
       outgoing.classList.remove("is-leaving", "is-fading");
       experience.classList.remove("is-transitioning");
       changing = false;
-      if (previous !== index && index + 1 < frames.length) void ensureLoaded(index + 1);
+      if (previous !== index) warmNext(index + 1);
+      if (pendingScene) {
+        const queued = pendingScene;
+        pendingScene = null;
+        void goTo(queued.next, queued.options);
+      }
     }, duration);
   }
 
@@ -99,6 +113,6 @@
   void ensureLoaded(0).then(() => {
     tell(frameAt(0), "LANGUAGE", language);
     if (requested !== 0) void goTo(requested, { fromHistory: true });
-    else { tell(frameAt(0), "ACTIVATE"); void ensureLoaded(1); }
+    else { tell(frameAt(0), "ACTIVATE"); warmNext(1); }
   });
 })();

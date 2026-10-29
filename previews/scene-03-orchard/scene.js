@@ -143,6 +143,7 @@ document.addEventListener("pointermove", event => {
 }, { passive:true });
 document.addEventListener("pointerleave", () => { targetX = targetY = 0; });
 function render() {
+  if (root.dataset.motionActive === "false") { setTimeout(render, 240); return; }
   x += (targetX - x) * .065;
   y += (targetY - y) * .065;
   root.style.setProperty("--look-x", `${(x * 13).toFixed(2)}px`);
