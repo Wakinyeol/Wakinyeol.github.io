@@ -29,14 +29,25 @@
     if (frame.dataset.loaded === "true") return Promise.resolve(frame);
     if (!frame.readyPromise) {
       frame.readyPromise = new Promise(resolve => {
-        frame.addEventListener("load", () => {
+        let readinessTimer;
+        const ready = () => {
+          if (frame.dataset.loaded === "true") return;
+          clearInterval(readinessTimer);
           frame.dataset.loaded = "true";
           resolve(frame);
-        }, { once: true });
+        };
+        // Remote media can keep an iframe in "interactive" for a long time.
+        // Its deferred interaction scripts have already run once motionScene
+        // appears, so do not hold the entire site on the final image request.
+        frame.addEventListener("load", ready, { once: true });
         if (frame.dataset.src) {
           frame.src = frame.dataset.src;
           delete frame.dataset.src;
         }
+        readinessTimer = setInterval(() => {
+          const doc = frame.contentDocument;
+          if (doc?.readyState !== "loading" && doc?.documentElement.dataset.motionScene && doc.querySelector("main")) ready();
+        }, 80);
       });
     }
     return frame.readyPromise;
