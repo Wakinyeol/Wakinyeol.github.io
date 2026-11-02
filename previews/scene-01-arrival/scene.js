@@ -65,26 +65,27 @@ function tick() {
   doc.style.setProperty("--scroll-progress", scrollValue.toFixed(4));
   doc.style.setProperty("--hero-opacity", Math.max(.8, 1 - scrollValue * .2).toFixed(4));
   doc.style.setProperty("--cue-opacity", Math.max(0, 1 - scrollValue * 2.1).toFixed(4));
-  requestAnimationFrame(tick);
+  const settled = Math.abs(targetX - x) < .002 && Math.abs(targetY - y) < .002 && Math.abs(scrollTarget - scrollValue) < .0002;
+  if (settled) setTimeout(tick, 120);
+  else requestAnimationFrame(tick);
 }
 tick();
 
-const imageUrls = [
-  "../../assets/ui/leaf-loader.png", "../../assets/scene-reference/scene-01-summer-workspace-wide-uncropped.png"
-];
+const heroUrl = "../../assets/scene-reference/scene-01-summer-workspace-wide-uncropped.png";
 const loader = document.getElementById("loading");
 const progress = document.getElementById("loading-percent");
-const start = performance.now();
-Promise.all(imageUrls.map(url => new Promise(resolve => {
-  const image = new Image();
-  image.onload = image.onerror = resolve;
-  image.src = url;
-}))).then(() => {
-  const delay = Math.max(0, 950 - (performance.now() - start));
-  window.setTimeout(() => {
-    progress.textContent = "100";
-    document.body.classList.add("loaded");
-    loader.classList.add("is-ready");
-    window.setTimeout(() => loader.remove(), 1200);
-  }, delay);
-});
+let revealed = false;
+function reveal() {
+  if (revealed) return;
+  revealed = true;
+  progress.textContent = "100";
+  document.body.classList.add("loaded");
+  loader.classList.add("is-ready");
+  window.setTimeout(() => loader.remove(), 420);
+}
+// The background is the only asset needed before the first scene can appear.
+// A slow or failing request must never leave the visitor stuck at the leaf.
+const hero = new Image();
+hero.onload = hero.onerror = reveal;
+hero.src = heroUrl;
+window.setTimeout(reveal, 2400);

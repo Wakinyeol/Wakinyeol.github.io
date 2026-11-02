@@ -64,7 +64,7 @@ html[lang="en"] h1 { font: 400 clamp(64px,5.6vw,91px)/.99 Georgia,"Times New Rom
 .chapter-mark { position: absolute; z-index: 5; left: clamp(26px,5.3vw,90px); bottom: 55px; display: flex; align-items: center; gap: 11px; font: 12px Georgia,serif; letter-spacing: .12em; color: #fffcf3; text-shadow: 0 1px 4px rgba(24,45,29,.75); }
 .chapter-mark span:last-child { opacity: .5; }
 .chapter-rule { width: 37px; height: 1px; background: #fffaf0; }
-.loading { position: fixed; inset: 0; z-index: 40; background: #f0f4e8; display: grid; place-items: center; transition: opacity 1s ease, visibility 1s; }
+.loading { position: fixed; inset: 0; z-index: 40; background: #f0f4e8; display: grid; place-items: center; transition: opacity .36s ease, visibility .36s; }
 .loading.is-ready { opacity: 0; visibility: hidden; }
 .loading-inner { display: flex; flex-direction: column; align-items: center; gap: 17px; transform: translateY(-12px); }
 .loading img { width: 104px; height: auto; animation: leaf-open 2.1s ease-in-out 1; transform-origin: 80% 72%; filter: drop-shadow(0 13px 11px rgba(71,93,56,.11)); }

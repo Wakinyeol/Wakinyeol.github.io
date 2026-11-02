@@ -209,7 +209,9 @@ if (!reduceMotion.matches) {
     y += (targetY - y) * .05;
     stage.style.setProperty("--look-x", `${(x * 8).toFixed(2)}px`);
     stage.style.setProperty("--look-y", `${(y * 5).toFixed(2)}px`);
-    requestAnimationFrame(frame);
+    const settled = Math.abs(targetX - x) < .003 && Math.abs(targetY - y) < .003;
+    if (settled) setTimeout(frame, 140);
+    else requestAnimationFrame(frame);
   }
   frame();
 }

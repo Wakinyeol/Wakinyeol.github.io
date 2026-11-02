@@ -95,6 +95,8 @@ function animate(){
   document.querySelectorAll("[data-threshold]").forEach(node=>{
     node.classList.toggle("is-visible",smooth>=Number(node.dataset.threshold));
   });
-  requestAnimationFrame(animate);
+  const settled = Math.abs(target - smooth) < .0001 && Math.abs(pointerX - lookX) < .005 && Math.abs(pointerY - lookY) < .005;
+  if (settled) setTimeout(animate, 120);
+  else requestAnimationFrame(animate);
 }
 animate();

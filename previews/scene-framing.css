@@ -7,6 +7,13 @@ html[data-motion-scene="05"] {--scene-art:url("../assets/scene-reference/scene-0
 html[data-motion-scene="06"] {--scene-art:url("../assets/scene-reference/scene-06-garden-magic-box-reference.png")}
 html[data-motion-scene="07"] {--scene-art:url("../assets/scene-reference/scene-07-photo-fashion-glasshouse-reference.jpeg")}
 html[data-motion-scene="08"] {--scene-art:url("../assets/scene-reference/scene-08-sunlit-window-portrait-reference.png")}
+html[data-motion-scene="01"] {--desktop-ambient:url("../assets/desktop-ambience/scene-01.jpg")}
+html[data-motion-scene="03"] {--desktop-ambient:url("../assets/desktop-ambience/scene-03.jpg")}
+html[data-motion-scene="04"] {--desktop-ambient:url("../assets/desktop-ambience/scene-04.jpg")}
+html[data-motion-scene="05"] {--desktop-ambient:url("../assets/desktop-ambience/scene-05.jpg")}
+html[data-motion-scene="06"] {--desktop-ambient:url("../assets/desktop-ambience/scene-06.jpg")}
+html[data-motion-scene="07"] {--desktop-ambient:url("../assets/desktop-ambience/scene-07.jpg")}
+html[data-motion-scene="08"] {--desktop-ambient:url("../assets/desktop-ambience/scene-08.jpg")}
 
 html[data-motion-scene="01"] .world-viewport,
 html[data-motion-scene="03"] .orchard,
@@ -25,11 +32,11 @@ html[data-motion-scene="05"] .stage::before,
 html[data-motion-scene="06"] .stage::before,
 html[data-motion-scene="07"] .stage::before,
 html[data-motion-scene="08"] .stage::before {
-  content:"";display:block;position:absolute;inset:-70px;pointer-events:none;
-  background:var(--scene-art) center/cover no-repeat;
-  filter:blur(45px) saturate(.72) brightness(.92);
-  opacity:.94;
+  content:"";display:block;position:absolute;inset:0;pointer-events:none;
+  background:var(--desktop-ambient) center/cover no-repeat;
 }
+html[data-motion-scene="07"] .ambient,
+html[data-motion-scene="08"] .ambient {display:none}
 html[data-motion-scene="01"] .world-stage {
   width:min(100vw,178.947dvh);left:50%;top:50%;
   transform:translate3d(calc(-50% + var(--world-x) * .07),calc(-50% + var(--world-y) * .05),0);

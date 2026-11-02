@@ -41,6 +41,8 @@
         // appears, so do not hold the entire site on the final image request.
         frame.addEventListener("load", ready, { once: true });
         if (frame.dataset.src) {
+          // A hidden iframe with loading="lazy" may never start fetching.
+          frame.loading = "eager";
           frame.src = frame.dataset.src;
           delete frame.dataset.src;
         }
@@ -56,8 +58,8 @@
   function warmNext(i) {
     if (i < 0 || i >= frames.length) return;
     const start = () => { if (frames[i].dataset.loaded !== "true") void ensureLoaded(i); };
-    if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 1500 });
-    else setTimeout(start, 100);
+    if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 800 });
+    else setTimeout(start, 250);
   }
 
   function tell(frame, action, value) {
@@ -70,7 +72,6 @@
     changing = true;
     const outgoing = frameAt(index);
     const incoming = await ensureLoaded(next);
-    const previous = index;
     tell(outgoing, "DEACTIVATE");
     tell(incoming, "LANGUAGE", language);
     outgoing.classList.remove("is-current");
@@ -78,17 +79,17 @@
     incoming.classList.remove("is-leaving", "is-fading");
     incoming.classList.add("is-current");
     tell(incoming, "ACTIVATE");
+    warmNext(next + 1);
     experience.classList.add("is-transitioning");
     index = next;
     updateLabels();
     if (!options.fromHistory) history.pushState({ scene: index + 1 }, "", `#scene-${String(index + 1).padStart(2, "0")}`);
     requestAnimationFrame(() => requestAnimationFrame(() => outgoing.classList.add("is-fading")));
-    const duration = reduced.matches ? 40 : matchMedia("(max-width: 700px)").matches ? 390 : 820;
+    const duration = reduced.matches ? 40 : matchMedia("(max-width: 700px)").matches ? 260 : 340;
     setTimeout(() => {
       outgoing.classList.remove("is-leaving", "is-fading");
       experience.classList.remove("is-transitioning");
       changing = false;
-      if (previous !== index) warmNext(index + 1);
       if (pendingScene) {
         const queued = pendingScene;
         pendingScene = null;
@@ -120,10 +121,15 @@
   window.addEventListener("hashchange", () => { if (sceneFromHash() !== index) void goTo(sceneFromHash(), { fromHistory: true }); });
 
   const requested = sceneFromHash();
+  if (requested !== 0) {
+    frameAt(0).classList.remove("is-current");
+    frameAt(requested).classList.add("is-current");
+    index = requested;
+  }
   updateLabels();
-  void ensureLoaded(0).then(() => {
-    tell(frameAt(0), "LANGUAGE", language);
-    if (requested !== 0) void goTo(requested, { fromHistory: true });
-    else { tell(frameAt(0), "ACTIVATE"); warmNext(1); }
+  void ensureLoaded(index).then(() => {
+    tell(frameAt(index), "LANGUAGE", language);
+    tell(frameAt(index), "ACTIVATE");
+    warmNext(index + 1);
   });
 })();

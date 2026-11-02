@@ -150,6 +150,8 @@ function render() {
   root.style.setProperty("--look-y", `${(y * 10).toFixed(2)}px`);
   root.style.setProperty("--tilt-y", `${(-x * .65).toFixed(2)}deg`);
   root.style.setProperty("--tilt-x", `${(y * .4).toFixed(2)}deg`);
-  requestAnimationFrame(render);
+  const settled = Math.abs(targetX - x) < .003 && Math.abs(targetY - y) < .003;
+  if (settled) setTimeout(render, 140);
+  else requestAnimationFrame(render);
 }
 render();
