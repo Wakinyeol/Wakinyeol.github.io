@@ -28,13 +28,13 @@ html[data-motion-scene="08"] {--desktop-ambient:url("../assets/desktop-ambience/
     --art-copy-right:calc(50% - var(--art-half-width) + var(--art-copy-inset));
   }
   html[data-motion-scene="03"] .scene-heading {
-    top:36%;right:var(--art-copy-right);width:min(31vw,430px);
+    top:38.5%;right:var(--art-copy-right);width:min(31vw,430px);
   }
   html[data-motion-scene="03"] .ground-story {
     right:var(--art-copy-right);bottom:6%;width:min(500px,54vw);
   }
   html[data-motion-scene="03"] .interaction-hint {
-    margin-left:12px;font-size:clamp(16px,1.35vw,20px);white-space:nowrap;
+    margin-left:42px;font-size:clamp(16px,1.35vw,20px);white-space:nowrap;
   }
   html[data-motion-scene="03"] .capability-result {
     left:102px;width:calc(100% - 102px);
@@ -57,7 +57,7 @@ html[data-motion-scene="08"] {--desktop-ambient:url("../assets/desktop-ambience/
   }
 }
 @media(min-width:701px) and (max-height:780px){
-  html[data-motion-scene="03"] .scene-heading {top:31%}
+  html[data-motion-scene="03"] .scene-heading {top:33.5%}
   html[data-motion-scene="03"] .scene-heading h1 {font-size:clamp(27px,2.6vw,40px)}
 }
 @media(min-width:701px) and (max-width:800px){
