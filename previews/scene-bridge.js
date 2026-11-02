@@ -6,6 +6,7 @@
   const sceneNumber = location.pathname.match(/\/scene-(0[1-8])-/)?.[1];
   const motionRoot = document.documentElement;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const iosWebKit = /AppleWebKit/.test(navigator.userAgent) && (/iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
   let motionObserver;
   let resetMotionLook = () => {};
   if (["05", "06", "07"].includes(sceneNumber)) {
@@ -164,12 +165,22 @@
   }, { passive: true });
   document.addEventListener("touchend", event => {
     if (!startTouch || overlayOpen()) { startTouch = null; return; }
-    const delta = startTouch.y - event.changedTouches[0].clientY;
-    const horizontal = Math.abs(startTouch.x - event.changedTouches[0].clientX);
-    if (!startTouch.scrolling && Math.abs(delta) > 55 && Math.abs(delta) > horizontal * 1.25) {
+    const gesture = startTouch;
+    const delta = gesture.y - event.changedTouches[0].clientY;
+    const horizontal = Math.abs(gesture.x - event.changedTouches[0].clientX);
+    if (!gesture.scrolling && Math.abs(delta) > 55 && Math.abs(delta) > horizontal * 1.25) {
       const direction = Math.sign(delta);
       // A long scrolling scan/arrival should finish before changing scenes.
-      if (boundary(direction) && (sceneNumber !== "01" && sceneNumber !== "02" || Math.abs(scrollY - startTouch.scrollY) < 12)) navigate(direction);
+      if (boundary(direction) && (sceneNumber !== "01" && sceneNumber !== "02" || Math.abs(scrollY - gesture.scrollY) < 12)) navigate(direction);
+      else if (iosWebKit && (sceneNumber === "01" || sceneNumber === "02")) {
+        // iOS Safari sometimes swallows scrolling in a fixed-height iframe.
+        // Only step the internal scan when its native scroll truly did not move.
+        setTimeout(() => {
+          if (active && !overlayOpen() && Math.abs(scrollY - gesture.scrollY) < 4 && !boundary(direction)) {
+            scrollTo(0, scrollY + delta * 1.2);
+          }
+        }, 180);
+      }
     }
     startTouch = null;
   }, { passive: true });
@@ -191,6 +202,12 @@
         nextCue.querySelector(".cue-copy").textContent = value === "en" ? "Swipe up" : "向下滑动";
         nextCue.setAttribute("aria-label", value === "en" ? "Go to the next scene" : "进入下一幕");
       }
+    }
+    if (action === "VIEWPORT" && value) {
+      const top = Number(value.safeTop);
+      const bottom = Number(value.safeBottom);
+      if (Number.isFinite(top)) motionRoot.style.setProperty("--embedded-safe-top", `${Math.max(0, top)}px`);
+      if (Number.isFinite(bottom)) motionRoot.style.setProperty("--embedded-safe-bottom", `${Math.max(0, bottom)}px`);
     }
   });
 })();

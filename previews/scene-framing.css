@@ -137,7 +137,7 @@ html[data-motion-scene="08"] .scene-image {
   html[data-motion-scene="07"] .stage {position:fixed;overflow:hidden}
   html[data-motion-scene="07"] .scene {position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden}
   html[data-motion-scene="07"] .scene::before {content:"";position:absolute;top:50%;left:0;width:100%;aspect-ratio:1088/608;transform:translateY(-50%);background:var(--scene-art) center/100% 100% no-repeat;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent,black 7%,black 93%,transparent);mask-image:linear-gradient(to bottom,transparent,black 7%,black 93%,transparent)}
-  html[data-motion-scene="07"] .shot {position:absolute;top:50%;width:50%;height:calc(100vw * 608 / 1088);min-height:0;transform:translateY(-50%);overflow:visible}
+  html[data-motion-scene="07"] .shot {position:absolute;top:50%;width:50%;height:55.88235vw;min-height:0;transform:translateY(-50%);overflow:visible}
   html[data-motion-scene="07"] .shot-photo {left:0}
   html[data-motion-scene="07"] .shot-fashion {left:50%}
   html[data-motion-scene="07"] .shot .scene-image,
@@ -148,6 +148,8 @@ html[data-motion-scene="08"] .scene-image {
   html[data-motion-scene="07"] .character-tag-photo {left:5%;right:auto}
   html[data-motion-scene="07"] .character-tag-fashion {right:5%;left:auto}
   html[data-motion-scene="08"] .scene-image {object-fit:contain;object-position:center}
+  html[data-motion-scene] .top-bar {top:max(env(safe-area-inset-top,0px),var(--embedded-safe-top,0px))}
+  html[data-motion-scene="07"] .account-panel {bottom:max(16px,env(safe-area-inset-bottom,0px),var(--embedded-safe-bottom,0px))}
   html[data-motion-scene="08"] .contact {font-family:Didot,"Bodoni 72","Times New Roman",Georgia,serif;font-weight:400;-webkit-text-stroke:.25px rgb(5 46 31 / 38%);text-shadow:1px 1px 0 rgb(5 46 31 / 45%),1px 2px 5px rgb(0 30 20 / 48%)}
 }
 
@@ -158,10 +160,21 @@ html[data-motion-scene="08"] .scene-image {
 
 .scene-next-cue {display:none}
 @media(max-width:700px){
-  .scene-next-cue {position:fixed;z-index:19;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:7px 13px;border:1px solid #fff9;border-radius:99px;background:#1835299c;box-shadow:0 3px 15px #1e382046;color:#fff;font:600 11px/1.2 "PingFang SC",sans-serif;letter-spacing:.1em;white-space:nowrap;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .scene-next-cue {position:fixed;z-index:19;left:50%;bottom:max(12px,env(safe-area-inset-bottom),var(--embedded-safe-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:7px 13px;border:1px solid #fff9;border-radius:99px;background:#1835299c;box-shadow:0 3px 15px #1e382046;color:#fff;font:600 11px/1.2 "PingFang SC",sans-serif;letter-spacing:.1em;white-space:nowrap;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
   .scene-next-cue span {display:inline-block;animation:cue-point 1.7s ease-in-out infinite}
-  html[data-motion-scene="05"] .scene-next-cue {bottom:calc(130px + env(safe-area-inset-bottom))}
+  html[data-motion-scene="05"] .scene-next-cue {bottom:calc(130px + max(env(safe-area-inset-bottom),var(--embedded-safe-bottom,0px)))}
   html[data-motion-scene="08"] .scene-next-cue {display:none}
   body:has(.viewer.open,.gallery.open,.account-panel.is-open,.detail.is-open,.ground-story.is-playing,.stage.is-browsing) .scene-next-cue {display:none}
 }
 @keyframes cue-point {50%{transform:translateY(3px)}}
+
+/* Older Safari versions reject arithmetic with multiplied CSS variables.
+   Keep the full artwork centred even when the decorative parallax is absent. */
+@supports not (transform:translateX(calc(10px * .5))){
+  html[data-motion-scene="01"] .world-stage {transform:translate(-50%,-50%)}
+  html[data-motion-scene="01"] .hero-copy {transform:translateY(-43%)}
+  html[data-motion-scene="02"] .studio-echo {transform:none}
+  @media(max-width:860px){
+    html[data-motion-scene="01"] .hero-copy {transform:none}
+  }
+}

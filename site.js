@@ -18,6 +18,29 @@
   let language = "zh";
   try { language = localStorage.getItem("arrival-preview-language") === "en" ? "en" : "zh"; } catch { /* file previews may disallow storage */ }
 
+  // iOS Safari may size a fixed iframe against its layout viewport while the
+  // browser toolbar is visible. Keep the story shell on the visual viewport.
+  const appleTouch = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const safeAreaProbe = document.createElement("div");
+  safeAreaProbe.style.cssText = "position:fixed;visibility:hidden;pointer-events:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)";
+  document.body.append(safeAreaProbe);
+  let viewportUpdate = 0;
+  function syncViewport() {
+    viewportUpdate = 0;
+    if (appleTouch && window.visualViewport && window.visualViewport.scale === 1) {
+      document.documentElement.style.setProperty("--site-viewport-height", `${Math.round(window.visualViewport.height)}px`);
+    }
+    const styles = getComputedStyle(safeAreaProbe);
+    const value = { safeTop: parseFloat(styles.paddingTop) || 0, safeBottom: parseFloat(styles.paddingBottom) || 0 };
+    frames.forEach(frame => { if (frame.dataset.loaded === "true") tell(frame, "VIEWPORT", value); });
+  }
+  function queueViewportSync() {
+    if (!viewportUpdate) viewportUpdate = requestAnimationFrame(syncViewport);
+  }
+  window.addEventListener("resize", queueViewportSync, { passive: true });
+  window.visualViewport?.addEventListener("resize", queueViewportSync, { passive: true });
+  syncViewport();
+
   function updateLabels() {
     document.documentElement.lang = language === "en" ? "en" : "zh-CN";
     announcement.textContent = `${language === "en" ? "Scene" : "第"} ${index + 1} ${language === "en" ? "" : "幕"}：${sceneNames[index][language === "en" ? 1 : 0]}`;
@@ -34,6 +57,9 @@
           if (frame.dataset.loaded === "true") return;
           clearInterval(readinessTimer);
           frame.dataset.loaded = "true";
+          frame.classList.remove("is-preparing");
+          const styles = getComputedStyle(safeAreaProbe);
+          tell(frame, "VIEWPORT", { safeTop: parseFloat(styles.paddingTop) || 0, safeBottom: parseFloat(styles.paddingBottom) || 0 });
           resolve(frame);
         };
         // Remote media can keep an iframe in "interactive" for a long time.
@@ -42,6 +68,9 @@
         frame.addEventListener("load", ready, { once: true });
         if (frame.dataset.src) {
           // A hidden iframe with loading="lazy" may never start fetching.
+          // Safari also postpones work in visibility:hidden frames even when
+          // loading=eager. Make it visually transparent, but renderable.
+          frame.classList.add("is-preparing");
           frame.loading = "eager";
           frame.src = frame.dataset.src;
           delete frame.dataset.src;
